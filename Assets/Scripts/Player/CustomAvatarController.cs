@@ -21,6 +21,23 @@ public class CustomAvatarController : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject myMesh;
     [SerializeField] private BoxCollider myCollider;
 
+
+    [Header("Attack")]
+    [SerializeField] private AudioClip attackClip;
+    [Header("Non Attack")]
+    [SerializeField] private AudioClip nonAttackClip;
+
+    [Header("Waik")]
+    [SerializeField] private AudioClip walkClip;
+    
+    [Header("Damaged")]
+    [SerializeField] private AudioClip damagedClip;
+    [Header("Die")]
+    [SerializeField] private AudioClip dieClip;
+
+
+    private PhotonView _pv;
+    private AudioSource _audioSource;
     private Animator _animator;
     private bool _isRunning;
     private bool _isAttacking;
@@ -29,7 +46,9 @@ public class CustomAvatarController : MonoBehaviourPunCallbacks
     private bool _isDead = false;
     private int _playerConut;
     private RaycastHit hit;
-
+    
+    [Space(25)]
+    
     public Vector3 boxSize = new Vector3(0.5f, 0.5f, 0.5f);   // 박스의 크기
     public Vector3 castDirection = Vector3.forward;   // 캐스트 방향
     public float castDistance = 3f;
@@ -46,6 +65,16 @@ public class CustomAvatarController : MonoBehaviourPunCallbacks
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
+        _pv = GetComponent<PhotonView>();
+
+
+        if (attackClip == null) attackClip = Resources.Load<AudioClip>("Sound/Attack");
+        if (nonAttackClip == null) nonAttackClip = Resources.Load<AudioClip>("Sound/NonAttack");
+        if (walkClip == null) walkClip = Resources.Load<AudioClip>("Sound/Walk");
+        if (damagedClip == null) damagedClip = Resources.Load<AudioClip>("Sound/Damaged");
+        if (dieClip == null) dieClip = Resources.Load<AudioClip>("Sound/Die");
+        
 
         if (photonView.IsMine)
         {
@@ -174,6 +203,39 @@ public class CustomAvatarController : MonoBehaviourPunCallbacks
         _mainCamera.transform.LookAt(transform.position + Vector3.up * 1.5f);
     }
 
+    #region AudioClip
+
+    [PunRPC]
+    private void AttackAudio()
+    {
+        _audioSource.PlayOneShot(attackClip);
+    }
+
+    [PunRPC]
+    private void NonAttackAudio()
+    {
+        _audioSource.PlayOneShot(nonAttackClip);
+    }
+    [PunRPC]
+    private void WalkAudio()
+    {
+        _audioSource.PlayOneShot(walkClip);
+    }
+
+    [PunRPC]
+    private void DamagedAudio()
+    {
+        _audioSource.PlayOneShot(damagedClip);
+    } 
+                
+    [PunRPC]
+    private void DieAudio()
+    {
+        _audioSource.PlayOneShot(dieClip);
+    }
+
+    #endregion
+
     // 플레이어 공격 메서드
     private void HandleAttack()
     {
@@ -181,6 +243,8 @@ public class CustomAvatarController : MonoBehaviourPunCallbacks
         canMove = false;
         SetState(AvatarState.Attack);
         _animator.SetTrigger("Attack");
+
+        _pv.RPC("AttackAudio", RpcTarget.All);
 
         StartCoroutine(WaitForAttackAnimationToEnd());
     }
@@ -247,6 +311,9 @@ public class CustomAvatarController : MonoBehaviourPunCallbacks
     {
         if (myMesh == null) return;
 
+        // 맞는소리 재생
+        _pv.RPC("DamagedAudio", RpcTarget.All);
+
         if (photonView.IsMine)
         {
             StartCoroutine(DieAnim());
@@ -261,6 +328,11 @@ public class CustomAvatarController : MonoBehaviourPunCallbacks
         _isDead = true;
         _animator.SetBool("isDie", true);
         _animator.SetTrigger("Die");
+
+        yield return new WaitForSeconds(1.5f);
+
+        // 죽는소리 재생
+        _pv.RPC("DieAudio", RpcTarget.All);
 
         yield return new WaitForSeconds(3.5f);
 
@@ -339,6 +411,9 @@ public class CustomAvatarController : MonoBehaviourPunCallbacks
                     }
                     else
                     {
+                        // 공격소리 재생
+                        _pv.RPC("Attack", RpcTarget.All);
+
                         DieRPC(id);
                         Debug.Log("Player Attack");
                     }
@@ -355,9 +430,17 @@ public class CustomAvatarController : MonoBehaviourPunCallbacks
 
                 if (SceneManager.GetActiveScene().name == "Map")
                 {
+                    // 공격소리 재생
+                    _pv.RPC("Attack", RpcTarget.All);
                     Debug.Log("Ai Attack");
                     aiwalker.DieRPC(id);
                 }
+            }
+
+            else
+            {
+                // NonAttack소리 재생
+                _pv.RPC("NonAttack", RpcTarget.All);
             }
         }
     }

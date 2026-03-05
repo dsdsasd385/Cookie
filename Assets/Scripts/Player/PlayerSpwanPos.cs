@@ -16,10 +16,6 @@ public class PlayerSpwanPos : MonoBehaviourPun
 
     private int actorNumber;
 
-    void Start()
-    {
-
-    }
 
     public void PlayerSetPosition(List<Vector3> _spawnPositionList)
     {
