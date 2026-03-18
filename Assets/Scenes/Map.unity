@@ -8293,7 +8293,7 @@ MonoBehaviour:
   distance: 3
   aiPrefab: {fileID: 2787038358033295751, guid: eeaaad2d0006dce4abc3474355866435,
     type: 3}
-  playerSpwanPos: {fileID: 141511632}
+  playerSpawnPos: {fileID: 141511632}
   _spawnPositionList: []
   _playerCount: 0
 --- !u!4 &1753162630

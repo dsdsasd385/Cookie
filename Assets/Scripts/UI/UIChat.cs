@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class UIChat : MonoBehaviour
 {
-    [SerializeField] private InputField inputChat;
+    [SerializeField] private UnityEngine.UI.InputField inputChat;
 
     private void Awake()
     {

@@ -68,7 +68,7 @@ namespace Photon.Chat.Demo
 
         public RectTransform ChatPanel;     // set in inspector (to enable/disable panel)
         public GameObject UserIdFormPanel;
-        public InputField InputFieldChat;   // set in inspector
+        public UnityEngine.UI.InputField InputFieldChat;   // set in inspector
         public Text CurrentChannelText;     // set in inspector
         public Toggle ChannelToggleToInstantiate; // set in inspector
 

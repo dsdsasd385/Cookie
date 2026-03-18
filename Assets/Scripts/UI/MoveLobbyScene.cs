@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class MoveLobbySence : MonoBehaviourPunCallbacks
+public class MoveLobbyScene : MonoBehaviourPunCallbacks
 {
     public void LoadScene()
     {

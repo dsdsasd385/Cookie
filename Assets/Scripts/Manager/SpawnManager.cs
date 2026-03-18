@@ -9,7 +9,7 @@ public class SpawnManager : MonoBehaviourPunCallbacks
     [SerializeField] private List<SpawnAreaManager> spawnAreaManager = new List<SpawnAreaManager>();
     [SerializeField] float distance = 3;
     [SerializeField] GameObject aiPrefab;
-    [SerializeField] PlayerSpwanPos playerSpwanPos;
+    [SerializeField] PlayerSpawnPos playerSpawnPos;
 
 
     public List<Vector3> _spawnPositionList = new List<Vector3>();
@@ -59,7 +59,7 @@ public class SpawnManager : MonoBehaviourPunCallbacks
         }
 
         // 플레이어 포지션 할당 및 생성
-        playerSpwanPos.PlayerSetPosition(_spawnPositionList);
+        playerSpawnPos.PlayerSetPosition(_spawnPositionList);
 
         // AI 생성
         foreach (var position in _spawnPositionList)

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-public class PlayerSpwanPos : MonoBehaviourPun
+public class PlayerSpawnPos : MonoBehaviourPun
 {
     [SerializeField] SpawnManager spawnManager;
     [SerializeField] GameObject playerPrefab;

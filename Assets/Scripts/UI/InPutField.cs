@@ -4,9 +4,9 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class InPutField : MonoBehaviourPunCallbacks
+public class InputField : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private InputField inputField;
+    [SerializeField] private UnityEngine.UI.InputField inputField;
     [SerializeField] private Button joinButton;
     [SerializeField] private Text connectInfoText;
 

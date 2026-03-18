@@ -18,7 +18,7 @@ namespace Photon.Chat.Demo
 
         public ChatGui chatNewComponent;
 
-        public InputField idInput;
+        public UnityEngine.UI.InputField idInput;
 
         public void Start()
         {

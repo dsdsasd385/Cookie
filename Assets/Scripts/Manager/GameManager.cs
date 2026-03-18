@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        _myNickName = InPutField.myNickName;
+        _myNickName = InputField.myNickName;
         // 씬 내에서 Cinemachine 가상 카메라를 찾아 참조 설정
         followCamera = FindObjectOfType<CinemachineVirtualCamera>();
     }
