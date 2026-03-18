@@ -412,7 +412,7 @@ public class CustomAvatarController : MonoBehaviourPunCallbacks
                     else
                     {
                         // 傍拜家府 犁积
-                        _pv.RPC("Attack", RpcTarget.All);
+                        _pv.RPC("AttackAudio", RpcTarget.All);
 
                         DieRPC(id);
                         Debug.Log("Player Attack");
@@ -431,7 +431,7 @@ public class CustomAvatarController : MonoBehaviourPunCallbacks
                 if (SceneManager.GetActiveScene().name == "Map")
                 {
                     // 傍拜家府 犁积
-                    _pv.RPC("Attack", RpcTarget.All);
+                    _pv.RPC("AttackAudio", RpcTarget.All);
                     Debug.Log("Ai Attack");
                     aiwalker.DieRPC(id);
                 }

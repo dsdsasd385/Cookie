@@ -612,7 +612,7 @@ MonoBehaviour:
   _mainCamera: {fileID: 8642863010836867385}
   myMesh: {fileID: 3599960614778126867}
   myCollider: {fileID: -6358872114686520111}
-  attackClip: {fileID: 0}
+  attackClip: {fileID: 8300000, guid: 99205384f53df8b4abde02e5244d691c, type: 3}
   nonAttackClip: {fileID: 0}
   walkClip: {fileID: 0}
   damagedClip: {fileID: 0}
